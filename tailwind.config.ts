@@ -13,15 +13,39 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        category: {
+          anxiety: "hsl(var(--cat-anxiety))",
+          mood: "hsl(var(--cat-mood))",
+          trauma: "hsl(var(--cat-trauma))",
+          personality: "hsl(var(--cat-personality))",
+          neuro: "hsl(var(--cat-neuro))",
+          psychotic: "hsl(var(--cat-psychotic))",
+          substance: "hsl(var(--cat-substance))",
+          eating: "hsl(var(--cat-eating))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          soft: "hsl(var(--primary-soft))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
