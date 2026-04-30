@@ -26,7 +26,7 @@ export interface Disorder {
   overviewSimple: string;
   overviewClinical: string;
   criteriaSummary: string[];
-  symptoms: {
+  symptoms?: {
     cognitive?: string[];
     emotional?: string[];
     behavioral?: string[];
