@@ -27,7 +27,7 @@ export function searchDisorders(query: string, opts?: { category?: string }): Se
       { weight: 6, text: normalize(d.icd10 ?? ''), label: 'icd' },
       { weight: 5, text: normalize(d.keywords.join(' ')), label: 'keyword' },
       { weight: 3, text: normalize(d.overviewSimple), label: 'overview' },
-      { weight: 2, text: normalize([...(d.symptoms.cognitive ?? []), ...(d.symptoms.emotional ?? []), ...(d.symptoms.behavioral ?? []), ...(d.symptoms.physical ?? [])].join(' ')), label: 'symptom' },
+      { weight: 2, text: normalize([...(d.symptoms?.cognitive ?? []), ...(d.symptoms?.emotional ?? []), ...(d.symptoms?.behavioral ?? []), ...(d.symptoms?.physical ?? [])].join(' ')), label: 'symptom' },
     ];
 
     let score = 0;
