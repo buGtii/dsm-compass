@@ -14,7 +14,144 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookmarks: {
+        Row: {
+          created_at: string
+          disorder_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          disorder_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          disorder_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notes: {
+        Row: {
+          content: string
+          created_at: string
+          disorder_id: string | null
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          disorder_id?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          disorder_id?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          default_mode: string | null
+          display_name: string | null
+          id: string
+          onboarded: boolean | null
+          theme: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          default_mode?: string | null
+          display_name?: string | null
+          id: string
+          onboarded?: boolean | null
+          theme?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          default_mode?: string | null
+          display_name?: string | null
+          id?: string
+          onboarded?: boolean | null
+          theme?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      recent_views: {
+        Row: {
+          disorder_id: string
+          id: string
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          disorder_id: string
+          id?: string
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          disorder_id?: string
+          id?: string
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: []
+      }
+      study_progress: {
+        Row: {
+          disorder_id: string
+          due_at: string
+          ease: number
+          id: string
+          interval_days: number
+          last_grade: number | null
+          reps: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          disorder_id: string
+          due_at?: string
+          ease?: number
+          id?: string
+          interval_days?: number
+          last_grade?: number | null
+          reps?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          disorder_id?: string
+          due_at?: string
+          ease?: number
+          id?: string
+          interval_days?: number
+          last_grade?: number | null
+          reps?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

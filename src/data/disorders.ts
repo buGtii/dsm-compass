@@ -536,6 +536,17 @@ export const DISORDERS: Disorder[] = [
   },
 ];
 
+import { EXTRA_DISORDERS } from './disorders.generated';
+
+// Merge seed + generated, deduped by id (seed wins for richer entries).
+const _seen = new Set(DISORDERS.map((d) => d.id));
+for (const d of EXTRA_DISORDERS) {
+  if (!_seen.has(d.id)) {
+    DISORDERS.push(d);
+    _seen.add(d.id);
+  }
+}
+
 export const findRelated = (id: string) => {
   const d = DISORDERS.find((x) => x.id === id);
   if (!d?.relatedIds) return [];
