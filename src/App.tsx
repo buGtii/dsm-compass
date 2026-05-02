@@ -10,6 +10,7 @@ import Categories from "@/pages/Categories";
 import Bookmarks from "@/pages/Bookmarks";
 import DisorderDetail from "@/pages/DisorderDetail";
 import SymptomExplorer from "@/pages/SymptomExplorer";
+import Study from "@/pages/Study";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/categories/:slug" element={<Categories />} />
             <Route path="/bookmarks" element={<Bookmarks />} />
             <Route path="/symptom" element={<SymptomExplorer />} />
+            <Route path="/study" element={<Study />} />
             <Route path="/disorder/:id" element={<DisorderDetail />} />
           </Route>
           <Route path="*" element={<NotFound />} />

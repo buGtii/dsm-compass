@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles } from 'lucide-react';
+import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap } from 'lucide-react';
 import { CATEGORIES, DISORDERS } from '@/data/disorders';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import DisorderCard from '@/components/DisorderCard';
@@ -42,8 +42,10 @@ export default function Home() {
 
         {/* Quick actions */}
         <section className="grid grid-cols-2 gap-3">
-          <QuickTile to="/categories" icon={LayoutGrid} title="Browse Categories" subtitle={`${CATEGORIES.length} groups`} />
+          <QuickTile to="/study" icon={GraduationCap} title="Study Mode" subtitle="Flashcards & quiz" />
+          <QuickTile to="/categories" icon={LayoutGrid} title="Browse" subtitle={`${CATEGORIES.length} groups`} />
           <QuickTile to="/symptom" icon={Sparkles} title="Symptom Explorer" subtitle="AI-assisted (soon)" muted />
+          <QuickTile to="/bookmarks" icon={BookmarkCheck} title="Saved" subtitle="Your bookmarks" muted />
         </section>
 
         {/* Recent */}
