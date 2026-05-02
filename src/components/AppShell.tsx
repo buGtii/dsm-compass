@@ -1,12 +1,13 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Home, Search, BookmarkCheck, LayoutGrid, Stethoscope } from 'lucide-react';
+import { Home, Search, LayoutGrid, Settings, Sparkles, Stethoscope } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const tabs = [
   { to: '/', label: 'Home', icon: Home, end: true },
   { to: '/search', label: 'Search', icon: Search },
+  { to: '/symptom', label: 'AI', icon: Sparkles },
   { to: '/categories', label: 'Browse', icon: LayoutGrid },
-  { to: '/bookmarks', label: 'Saved', icon: BookmarkCheck },
+  { to: '/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function AppShell() {
@@ -19,7 +20,7 @@ export default function AppShell() {
       </main>
       {!onDetail && (
         <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/90 backdrop-blur-xl safe-bottom">
-          <div className="mx-auto max-w-2xl grid grid-cols-4">
+          <div className="mx-auto max-w-2xl grid grid-cols-5">
             {tabs.map(({ to, label, icon: Icon, end }) => (
               <NavLink
                 key={to}
