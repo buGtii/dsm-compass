@@ -1,1 +1,4 @@
 project_id = "bgbnzpcbwerdqtczzqau"
+
+[functions.symptom-explorer]
+verify_jwt = false
