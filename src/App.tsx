@@ -17,6 +17,7 @@ import ComparePage from "@/pages/Compare";
 import SettingsPage from "@/pages/Settings";
 import AuthPage from "@/pages/Auth";
 import Onboarding from "@/pages/Onboarding";
+import Privacy from "@/pages/Privacy";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ const App = () => (
             <Route path="/notes" element={<NotesPage />} />
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="/disorder/:id" element={<DisorderDetail />} />
           </Route>
           <Route path="*" element={<NotFound />} />

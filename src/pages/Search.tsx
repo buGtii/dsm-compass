@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Search as SearchIcon, X, SlidersHorizontal } from 'lucide-react';
 import { searchDisorders } from '@/lib/search';
+import { fastSearch } from '@/lib/searchIndex';
+import { DISORDERS } from '@/data/disorders';
 import { CATEGORIES } from '@/data/disorders';
 import DisorderCard from '@/components/DisorderCard';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
@@ -22,7 +24,16 @@ export default function SearchPage() {
   const [cat, setCat] = useState<string | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const results = useMemo(() => searchDisorders(q, { category: cat }), [q, cat]);
+  const results = useMemo(() => {
+    if (!q.trim()) {
+      const list = cat ? DISORDERS.filter((d) => d.category === cat) : DISORDERS;
+      return list.map((disorder) => ({ disorder, score: 0, matchedOn: [] as string[] }));
+    }
+    // Offline-first: instant inverted-index lookup, then fall back to fuzzy.
+    const fast = fastSearch(q).filter((d) => !cat || d.category === cat);
+    if (fast.length) return fast.map((disorder) => ({ disorder, score: 1, matchedOn: ['index'] }));
+    return searchDisorders(q, { category: cat });
+  }, [q, cat]);
 
   return (
     <div className="mx-auto max-w-2xl">

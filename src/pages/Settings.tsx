@@ -1,17 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2 } from 'lucide-react';
+import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2, Bell, Clock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
+import { ensurePermission, loadReminderSettings, saveReminderSettings, scheduleDailyReminder, type ReminderSettings } from '@/lib/reminders';
 
 export default function SettingsPage() {
   const { user, loading } = useAuth();
   const nav = useNavigate();
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark') || localStorage.getItem('theme') === 'dark');
   const [importing, setImporting] = useState(false);
+  const [reminders, setReminders] = useState<ReminderSettings>(() => loadReminderSettings());
+
+  useEffect(() => { saveReminderSettings(reminders); scheduleDailyReminder(reminders); }, [reminders]);
+
+  const onToggleReminders = async (v: boolean) => {
+    if (v) {
+      const ok = await ensurePermission();
+      if (!ok) { toast.error('Notification permission denied'); return; }
+    }
+    setReminders((r) => ({ ...r, enabled: v }));
+    toast.success(v ? 'Daily study reminder set' : 'Reminder turned off');
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -90,9 +103,30 @@ export default function SettingsPage() {
         </label>
       </Section>
 
+      <Section title="Study reminders">
+        <Row label="Daily study reminder" icon={Bell}>
+          <Switch checked={reminders.enabled} onCheckedChange={onToggleReminders} />
+        </Row>
+        {reminders.enabled && (
+          <div className="flex items-center gap-3 pl-12">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <input
+              type="time"
+              value={`${String(reminders.hour).padStart(2,'0')}:${String(reminders.minute).padStart(2,'0')}`}
+              onChange={(e) => {
+                const [h, m] = e.target.value.split(':').map(Number);
+                setReminders((r) => ({ ...r, hour: h, minute: m }));
+              }}
+              className="rounded-lg border border-border bg-background px-2 py-1 text-sm"
+            />
+            <span className="text-xs text-muted-foreground">Local notification, repeats daily</span>
+          </div>
+        )}
+      </Section>
+
       <Section title="About">
         <Row label="Version 1.0.0" icon={Info} />
-        <Row label="Privacy & data" icon={Shield} />
+        <Link to="/privacy"><Row label="Privacy Policy" icon={Shield} /></Link>
         <p className="mt-2 text-xs text-muted-foreground">PsychRef summarizes DSM-5-TR concepts for educational use. Content is paraphrased and is not a substitute for professional evaluation.</p>
       </Section>
     </div>
