@@ -1,17 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2 } from 'lucide-react';
+import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2, Bell, Clock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
+import { ensurePermission, loadReminderSettings, saveReminderSettings, scheduleDailyReminder, type ReminderSettings } from '@/lib/reminders';
 
 export default function SettingsPage() {
   const { user, loading } = useAuth();
   const nav = useNavigate();
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark') || localStorage.getItem('theme') === 'dark');
   const [importing, setImporting] = useState(false);
+  const [reminders, setReminders] = useState<ReminderSettings>(() => loadReminderSettings());
+
+  useEffect(() => { saveReminderSettings(reminders); scheduleDailyReminder(reminders); }, [reminders]);
+
+  const onToggleReminders = async (v: boolean) => {
+    if (v) {
+      const ok = await ensurePermission();
+      if (!ok) { toast.error('Notification permission denied'); return; }
+    }
+    setReminders((r) => ({ ...r, enabled: v }));
+    toast.success(v ? 'Daily study reminder set' : 'Reminder turned off');
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
