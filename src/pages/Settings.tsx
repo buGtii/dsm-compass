@@ -103,9 +103,30 @@ export default function SettingsPage() {
         </label>
       </Section>
 
+      <Section title="Study reminders">
+        <Row label="Daily study reminder" icon={Bell}>
+          <Switch checked={reminders.enabled} onCheckedChange={onToggleReminders} />
+        </Row>
+        {reminders.enabled && (
+          <div className="flex items-center gap-3 pl-12">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <input
+              type="time"
+              value={`${String(reminders.hour).padStart(2,'0')}:${String(reminders.minute).padStart(2,'0')}`}
+              onChange={(e) => {
+                const [h, m] = e.target.value.split(':').map(Number);
+                setReminders((r) => ({ ...r, hour: h, minute: m }));
+              }}
+              className="rounded-lg border border-border bg-background px-2 py-1 text-sm"
+            />
+            <span className="text-xs text-muted-foreground">Local notification, repeats daily</span>
+          </div>
+        )}
+      </Section>
+
       <Section title="About">
         <Row label="Version 1.0.0" icon={Info} />
-        <Row label="Privacy & data" icon={Shield} />
+        <Link to="/privacy"><Row label="Privacy Policy" icon={Shield} /></Link>
         <p className="mt-2 text-xs text-muted-foreground">PsychRef summarizes DSM-5-TR concepts for educational use. Content is paraphrased and is not a substitute for professional evaluation.</p>
       </Section>
     </div>
