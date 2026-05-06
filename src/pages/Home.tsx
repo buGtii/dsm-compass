@@ -28,7 +28,7 @@ export default function Home() {
             A calm, clinical reference for the mind.
           </h1>
           <p className="mt-2 text-sm text-primary-foreground/80 max-w-md">
-            Search disorders, explore criteria, and learn — built for clinicians, students, and curious minds.
+            {meta.emoji} {meta.label} mode · {meta.tagline}
           </p>
 
           <Link
@@ -44,13 +44,37 @@ export default function Home() {
       <div className="px-5 pt-6 space-y-6">
         <DisclaimerBanner compact />
 
-        {/* Quick actions */}
+        {/* Quick actions — role aware */}
         <section className="grid grid-cols-2 gap-3">
-          <QuickTile to="/symptom" icon={Sparkles} title="Symptom Explorer" subtitle="AI-assisted" />
-          <QuickTile to="/study" icon={GraduationCap} title="Study Mode" subtitle="Flashcards & quiz" />
-          <QuickTile to="/compare" icon={GitCompare} title="Compare" subtitle="Differential diagnosis" muted />
-          <QuickTile to="/notes" icon={NotebookPen} title="Notes" subtitle="With PDF export" muted />
-          <QuickTile to="/categories" icon={LayoutGrid} title="Browse" subtitle={`${CATEGORIES.length} groups`} muted />
+          {role === 'student' && <>
+            <QuickTile to="/study" icon={GraduationCap} title="Study Mode" subtitle="Flashcards & quiz" />
+            <QuickTile to="/cases" icon={BookOpen} title="Case Learning" subtitle="Vignettes" />
+            <QuickTile to="/symptom" icon={Sparkles} title="AI Explorer" subtitle="Symptom mapping" muted />
+            <QuickTile to="/compare" icon={GitCompare} title="Compare" subtitle="Side-by-side" muted />
+          </>}
+          {role === 'clinician' && <>
+            <QuickTile to="/checklist" icon={ClipboardCheck} title="DSM Checklist" subtitle="Tick criteria" />
+            <QuickTile to="/risk" icon={AlertTriangle} title="Risk Screen" subtitle="Crisis flags" />
+            <QuickTile to="/compare" icon={GitCompare} title="Differential" subtitle="Compare" muted />
+            <QuickTile to="/notes" icon={NotebookPen} title="Session Notes" subtitle="PDF export" muted />
+          </>}
+          {role === 'researcher' && <>
+            <QuickTile to="/categories" icon={LayoutGrid} title="Browse" subtitle={`${CATEGORIES.length} groups`} />
+            <QuickTile to="/compare" icon={GitCompare} title="Compare" subtitle="Up to 3" />
+            <button onClick={downloadDisorderCsv} className="text-left rounded-2xl border border-border bg-card p-4 shadow-soft transition hover:shadow-elevated">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary"><Download className="h-5 w-5" /></div>
+                <div><div className="font-semibold leading-tight">Export CSV</div><div className="text-[11px] text-primary">Full dataset</div></div>
+              </div>
+            </button>
+            <QuickTile to="/symptom" icon={Sparkles} title="AI Explorer" subtitle="Semantic" muted />
+          </>}
+          {role === 'patient' && <>
+            <QuickTile to="/symptom" icon={Sparkles} title="Symptom Explorer" subtitle="Plain-language" />
+            <QuickTile to="/risk" icon={AlertTriangle} title="Get Help Now" subtitle="Crisis resources" />
+            <QuickTile to="/categories" icon={LayoutGrid} title="Browse" subtitle="Learn about it" muted />
+            <QuickTile to="/notes" icon={NotebookPen} title="My Notes" subtitle="Private journal" muted />
+          </>}
           <QuickTile to="/bookmarks" icon={BookmarkCheck} title="Saved" subtitle="Your bookmarks" muted />
         </section>
 
