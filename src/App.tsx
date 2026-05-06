@@ -18,6 +18,9 @@ import SettingsPage from "@/pages/Settings";
 import AuthPage from "@/pages/Auth";
 import Onboarding from "@/pages/Onboarding";
 import Privacy from "@/pages/Privacy";
+import ChecklistPage from "@/pages/Checklist";
+import CasesPage from "@/pages/Cases";
+import RiskPage from "@/pages/Risk";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -62,6 +65,9 @@ const App = () => (
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/checklist" element={<ChecklistPage />} />
+            <Route path="/cases" element={<CasesPage />} />
+            <Route path="/risk" element={<RiskPage />} />
             <Route path="/disorder/:id" element={<DisorderDetail />} />
           </Route>
           <Route path="*" element={<NotFound />} />
