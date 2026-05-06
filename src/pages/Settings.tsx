@@ -16,6 +16,7 @@ export default function SettingsPage() {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark') || localStorage.getItem('theme') === 'dark');
   const [importing, setImporting] = useState(false);
   const [reminders, setReminders] = useState<ReminderSettings>(() => loadReminderSettings());
+  const [role, setRoleState] = useRole();
 
   useEffect(() => { saveReminderSettings(reminders); scheduleDailyReminder(reminders); }, [reminders]);
 
