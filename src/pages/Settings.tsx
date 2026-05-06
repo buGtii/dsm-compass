@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2, Bell, Clock } from 'lucide-react';
+import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2, Bell, Clock, Users, Download } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { ensurePermission, loadReminderSettings, saveReminderSettings, scheduleDailyReminder, type ReminderSettings } from '@/lib/reminders';
+import { useRole, ROLE_META, type Role } from '@/lib/role';
+import { downloadDisorderCsv } from '@/lib/exportCsv';
 
 export default function SettingsPage() {
   const { user, loading } = useAuth();
@@ -14,6 +16,7 @@ export default function SettingsPage() {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark') || localStorage.getItem('theme') === 'dark');
   const [importing, setImporting] = useState(false);
   const [reminders, setReminders] = useState<ReminderSettings>(() => loadReminderSettings());
+  const [role, setRoleState] = useRole();
 
   useEffect(() => { saveReminderSettings(reminders); scheduleDailyReminder(reminders); }, [reminders]);
 
@@ -81,10 +84,43 @@ export default function SettingsPage() {
         )}
       </Section>
 
+      <Section title="Mode">
+        <div className="grid grid-cols-2 gap-2">
+          {(Object.keys(ROLE_META) as Role[]).map((r) => {
+            const m = ROLE_META[r];
+            const on = role === r;
+            return (
+              <button
+                key={r}
+                onClick={() => { setRoleState(r); toast.success(`Switched to ${m.label} mode`); }}
+                className={`rounded-xl border p-3 text-left transition ${on ? 'border-primary bg-primary-soft/40' : 'border-border bg-background'}`}
+              >
+                <div className="text-xl">{m.emoji}</div>
+                <div className="font-semibold text-sm mt-0.5">{m.label}</div>
+                <div className="text-[11px] text-muted-foreground leading-snug">{m.tagline}</div>
+              </button>
+            );
+          })}
+        </div>
+      </Section>
+
       <Section title="Appearance">
         <Row label="Dark mode" icon={dark ? Moon : Sun}>
           <Switch checked={dark} onCheckedChange={setDark} />
         </Row>
+      </Section>
+
+      <Section title="Data">
+        <button onClick={() => { downloadDisorderCsv(); toast.success('CSV downloaded'); }} className="w-full flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-lg bg-primary-soft text-primary flex items-center justify-center"><Download className="h-4 w-4" /></div>
+            <div className="text-left">
+              <div className="font-medium text-sm">Export disorders to CSV</div>
+              <div className="text-xs text-muted-foreground">For research analysis</div>
+            </div>
+          </div>
+          <span className="text-xs text-primary font-medium">Download</span>
+        </button>
       </Section>
 
       <Section title="Content">
