@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2, Bell, Clock } from 'lucide-react';
+import { Moon, Sun, LogOut, User as UserIcon, Upload, Info, Shield, Loader2, Bell, Clock, Users, Download } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { ensurePermission, loadReminderSettings, saveReminderSettings, scheduleDailyReminder, type ReminderSettings } from '@/lib/reminders';
+import { useRole, ROLE_META, type Role } from '@/lib/role';
+import { downloadDisorderCsv } from '@/lib/exportCsv';
 
 export default function SettingsPage() {
   const { user, loading } = useAuth();
