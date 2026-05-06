@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap, NotebookPen, GitCompare } from 'lucide-react';
+import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap, NotebookPen, GitCompare, ClipboardCheck, BookOpen, AlertTriangle, Download } from 'lucide-react';
 import { CATEGORIES, DISORDERS } from '@/data/disorders';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import DisorderCard from '@/components/DisorderCard';
 import { getRecent, useBookmarks } from '@/lib/storage';
+import { useRole, ROLE_META } from '@/lib/role';
+import { downloadDisorderCsv } from '@/lib/exportCsv';
 
 export default function Home() {
+  const [role] = useRole();
+  const meta = ROLE_META[role];
   const { ids: bookmarks } = useBookmarks();
   const recentIds = getRecent();
   const recent = recentIds.map((id) => DISORDERS.find((d) => d.id === id)).filter(Boolean);
