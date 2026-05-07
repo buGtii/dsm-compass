@@ -35,6 +35,39 @@ export type Database = {
         }
         Relationships: []
       }
+      mood_logs: {
+        Row: {
+          created_at: string
+          energy: number | null
+          id: string
+          logged_at: string
+          mood: number
+          note: string | null
+          sleep_hours: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          energy?: number | null
+          id?: string
+          logged_at?: string
+          mood: number
+          note?: string | null
+          sleep_hours?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          energy?: number | null
+          id?: string
+          logged_at?: string
+          mood?: number
+          note?: string | null
+          sleep_hours?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       notes: {
         Row: {
           content: string
@@ -113,6 +146,36 @@ export type Database = {
           id?: string
           user_id?: string
           viewed_at?: string
+        }
+        Relationships: []
+      }
+      screener_results: {
+        Row: {
+          answers: Json
+          id: string
+          screener: string
+          severity: string
+          taken_at: string
+          total_score: number
+          user_id: string
+        }
+        Insert: {
+          answers?: Json
+          id?: string
+          screener: string
+          severity: string
+          taken_at?: string
+          total_score: number
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          id?: string
+          screener?: string
+          severity?: string
+          taken_at?: string
+          total_score?: number
+          user_id?: string
         }
         Relationships: []
       }
