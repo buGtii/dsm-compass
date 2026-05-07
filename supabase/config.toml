@@ -2,3 +2,6 @@ project_id = "bgbnzpcbwerdqtczzqau"
 
 [functions.symptom-explorer]
 verify_jwt = false
+
+[functions.dsm-chat]
+verify_jwt = false
