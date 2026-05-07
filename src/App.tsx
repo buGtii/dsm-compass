@@ -21,6 +21,10 @@ import Privacy from "@/pages/Privacy";
 import ChecklistPage from "@/pages/Checklist";
 import CasesPage from "@/pages/Cases";
 import RiskPage from "@/pages/Risk";
+import MoodPage from "@/pages/Mood";
+import ScreenersPage from "@/pages/Screeners";
+import GlossaryPage from "@/pages/Glossary";
+import ChatPage from "@/pages/Chat";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -68,6 +72,10 @@ const App = () => (
             <Route path="/checklist" element={<ChecklistPage />} />
             <Route path="/cases" element={<CasesPage />} />
             <Route path="/risk" element={<RiskPage />} />
+            <Route path="/mood" element={<MoodPage />} />
+            <Route path="/screeners" element={<ScreenersPage />} />
+            <Route path="/glossary" element={<GlossaryPage />} />
+            <Route path="/chat" element={<ChatPage />} />
             <Route path="/disorder/:id" element={<DisorderDetail />} />
           </Route>
           <Route path="*" element={<NotFound />} />

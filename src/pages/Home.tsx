@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap, NotebookPen, GitCompare, ClipboardCheck, BookOpen, AlertTriangle, Download } from 'lucide-react';
+import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap, NotebookPen, GitCompare, ClipboardCheck, BookOpen, AlertTriangle, Download, MessageCircle, Smile, ClipboardList, BookA } from 'lucide-react';
 import { CATEGORIES, DISORDERS } from '@/data/disorders';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import DisorderCard from '@/components/DisorderCard';
@@ -77,6 +77,16 @@ export default function Home() {
           </>}
           <QuickTile to="/bookmarks" icon={BookmarkCheck} title="Saved" subtitle="Your bookmarks" muted />
         </section>
+
+        {/* Universal tools — always available */}
+        <Section title="Tools for everyone">
+          <div className="grid grid-cols-2 gap-3">
+            <QuickTile to="/chat" icon={MessageCircle} title="AI Companion" subtitle="Ask anything" />
+            <QuickTile to="/screeners" icon={ClipboardList} title="Screeners" subtitle="PHQ-9 · GAD-7 · PCL-5" />
+            <QuickTile to="/mood" icon={Smile} title="Mood Journal" subtitle="Daily check-in" muted />
+            <QuickTile to="/glossary" icon={BookA} title="Glossary" subtitle="Clinical terms" muted />
+          </div>
+        </Section>
 
         {/* Recent */}
         {recent.length > 0 && (
