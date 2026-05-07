@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap, NotebookPen, GitCompare, ClipboardCheck, BookOpen, AlertTriangle, Download } from 'lucide-react';
+import { Search, Brain, BookmarkCheck, LayoutGrid, Sparkles, GraduationCap, NotebookPen, GitCompare, ClipboardCheck, BookOpen, AlertTriangle, Download, MessageCircle, Smile, ClipboardList, BookA } from 'lucide-react';
 import { CATEGORIES, DISORDERS } from '@/data/disorders';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import DisorderCard from '@/components/DisorderCard';
